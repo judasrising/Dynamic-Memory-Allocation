@@ -1,0 +1,52 @@
+#define _CRT_SECURE_NO_WARNINGS
+# include<stdio.h>
+# include<stdlib.h>
+#include<string.h>
+#define MAX_WORD_COUNT 5
+#define WORD_LEN 20
+
+void selection_sort(void *list[]);
+//void swap(int *p, int *q);
+
+int main()
+{
+	char *word_list[MAX_WORD_COUNT];
+	char word[WORD_LEN];
+
+	int i=0, word_count = 0;
+
+	while (word_count < MAX_WORD_COUNT)
+	{
+		printf("Enter a word: ");
+		scanf("%s", word);
+
+		word_list[i] = malloc(sizeof(word));
+		strcpy(word_list[i], word);
+		i++;
+		word_count++;
+	}
+
+	selection_sort(word_list, MAX_WORD_COUNT);
+
+	for (int i = 0; i < MAX_WORD_COUNT; i++)
+		printf("%s ", word_list[i]);
+	getch();
+}
+
+void selection_sort(void *list[],int n)
+{
+	int i, j, min;
+	char temp[WORD_LEN + 1];
+
+	for (i = 0; i < n-1; i++)
+	{
+		min = i;
+		for (j = i + 1; j < n; j++)
+			if ((strcmp(list[j], list[min])) < 0)
+				min = j;
+
+		strcpy(temp, list[i]);
+		strcpy(list[i], list[min]);
+		strcpy(list[min], temp);
+	}
+}
